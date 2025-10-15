@@ -4,6 +4,7 @@ import os
 
 app = Flask(__name__)
 DB_PATH = "dinner.db"
+app.config['JSON_AS_ASCII'] = False 
 
 def get_menu_by_date(date):
     if not os.path.exists(DB_PATH):

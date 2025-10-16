@@ -5,6 +5,7 @@ import os
 app = Flask(__name__)
 DB_PATH = "dinner.db"
 app.config['JSON_AS_ASCII'] = False
+apikey = os.environ.get("key")
 
 def get_menu_by_date(date):
     if not os.path.exists(DB_PATH):
@@ -22,6 +23,13 @@ def home():
 
 @app.route("/menu", methods=["GET"])
 def get_menu():
+
+    key = request.args.get("key")
+    if not key or key != apikey:
+            return jsonify({
+                "error": "Unauthorized: Invalid or missing API key. Please include a valid 'key' query parameter."
+            }), 401
+    
     date = request.args.get("date")
     if not date:
         return jsonify({"error": "Missing 'date' parameter"}), 400

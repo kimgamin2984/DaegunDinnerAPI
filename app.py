@@ -25,10 +25,6 @@ def home():
 def get_menu():
 
     key = request.args.get("key")
-
-    print('[DEBUG] apikey = ', repr(apikey))
-    print('[DEBUG] key = ', repr(key))
-
     if not key or key != apikey:
             return jsonify({
                 "error": "Unauthorized: Invalid or missing API key. Please include a valid 'key' query parameter."
